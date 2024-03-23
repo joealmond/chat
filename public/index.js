@@ -9,6 +9,7 @@ const messages = document.getElementById("messages");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
   if (input.value.trim()) {
 
     const msg = document.createElement("li");
@@ -86,3 +87,26 @@ const toggleButton = document.getElementById('toggle-btn');
       socket.connect();
     }
   });
+
+
+  const dialog = document.getElementById('nameDialog');
+  const nameInput = document.getElementById('name');
+
+  // Function to open dialog
+  
+  function showDialog() {
+    const storedName = localStorage.getItem('userName');
+    if(storedName) {
+      nameInput.value = storedName;
+    }
+    dialog.showModal();
+  }
+
+  window.onload = showDialog;
+
+  document.getElementById('confirmBtn').onclick = function() {
+    const name = nameInput.value;
+    console.log("Name entered:", name);
+    localStorage.setItem('userName', name); // Save the name to localStorage
+    dialog.close();
+  };

@@ -8,10 +8,24 @@
   <script src="/socket.io/socket.io.js"></script>
   <script defer src="index.js"></script>
   <body>
+
+    <dialog id="nameDialog">
+      <form method="dialog">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name">
+        <menu>
+          <button value="cancel">Cancel</button>
+          <button id="confirmBtn" value="default">Confirm</button>
+        </menu>
+      </form>
+    </dialog>
+
     <ul id="messages"></ul>
+
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
       <button id="toggle-btn">Disconnect</button>
     </form>
+    
   </body>
 </html>
