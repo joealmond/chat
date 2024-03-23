@@ -4,6 +4,9 @@ const form = document.getElementById("form");
 const input = document.getElementById("input");
 const messages = document.getElementById("messages");
 
+
+// display chat message on sneder
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (input.value.trim()) {
@@ -32,8 +35,11 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+
+// display chat message on recipient
+
 socket.on("chat message", (data) => {
-  
+
   // timeout simulating a client ona different machine
   setTimeout(() => {
 
@@ -53,3 +59,30 @@ socket.on("chat message", (data) => {
   }, 500);
 
 });
+
+
+// log connection status
+
+socket.on('connect', () => {
+  console.log('Socket has connected.');
+});
+
+socket.on('disconnect', () => {
+  console.log('Socket has disconnected.');
+});
+
+
+// connect/disconnect button
+
+const toggleButton = document.getElementById('toggle-btn');
+
+  toggleButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (socket.connected) {
+      toggleButton.innerText = 'Connect';
+      socket.disconnect();
+    } else {
+      toggleButton.innerText = 'Disconnect';
+      socket.connect();
+    }
+  });
