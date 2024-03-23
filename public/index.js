@@ -7,6 +7,7 @@ const messages = document.getElementById("messages");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (input.value.trim()) {
+
     const msg = document.createElement("li");
     msg.textContent = input.value;
     msg.id = "msg-" + Date.now();
@@ -32,12 +33,23 @@ form.addEventListener("submit", (e) => {
 });
 
 socket.on("chat message", (data) => {
+  
   // timeout simulating a client ona different machine
   setTimeout(() => {
+
     const msgElement = document.getElementById(data.id);
+
     if (msgElement) {
       msgElement.style.fontWeight = "normal";
       msgElement.style.fontStyle = "normal";
-    }
+    } else {
+      const msg = document.createElement("li");
+      msg.textContent = data.msg;
+      msg.id = data.id;
+      messages.appendChild(msg);
+      window.scrollTo(0, document.body.scrollHeight);
+    };
+
   }, 500);
+
 });
